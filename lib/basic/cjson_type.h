@@ -17,4 +17,6 @@ enum __cjson_type {
   OBJECT
 };
 
+typedef enum __cjson_type CJSON_TYPE;
+
 #endif
