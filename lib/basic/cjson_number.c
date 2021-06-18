@@ -67,7 +67,7 @@ cjson_number_stringify(cjson_number* number, unsigned char* buf, unsigned int ma
   return ret;
 }
 
-static int
+int
 cjson_number_stringify_integer(cjson_number* number, unsigned char* buf, unsigned int maxsz) {
   if(number == NULL) {
     return CJSON_UNINIT;
@@ -91,7 +91,7 @@ cjson_number_stringify_integer(cjson_number* number, unsigned char* buf, unsigne
   }
 
   if(value < 0) {
-    *ptr = "-";
+    *ptr = '-';
     ++ptr;
     value = -value;
   }
@@ -109,10 +109,11 @@ cjson_number_stringify_integer(cjson_number* number, unsigned char* buf, unsigne
     return CJSON_NOSPACE;
   }
   *ptr = 0;
+  CJSON_BUFREV(buf);
   return CJSON_OK;
 }
 
-static int
+int
 cjson_number_stringify_double(cjson_number* number, unsigned char* buf, unsigned int maxsz) {
   if(number == NULL) {
     return CJSON_UNINIT;
@@ -166,6 +167,8 @@ cjson_number_stringify_double(cjson_number* number, unsigned char* buf, unsigned
   if(ptr - buf >= maxsz) {
     return CJSON_NOSPACE;
   }
+  *ptr = '0';
+  CJSON_BUFREV(buf);
   *ptr = '.';
   ++ptr;
 

@@ -64,6 +64,9 @@ int cjson_number_set_double(cjson_number* number, double value);
  */
 int cjson_number_stringify(cjson_number* number, unsigned char* buf, unsigned int maxsz);
 
+int cjson_number_stringify_double(cjson_number* number, unsigned char* buf, unsigned int maxsz);
+int cjson_number_stringify_integer(cjson_number* number, unsigned char* buf, unsigned int maxsz);
+
 /**
  * Define max digit of double
  */

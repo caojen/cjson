@@ -22,7 +22,7 @@
 #ifndef CJSON_TYPE_H
 #define CJSON_TYPE_H
 
-#include <string.h> // include for memset
+#include <string.h> // include for memset, strlen...
 
 enum __cjson_type {
   STRING,
@@ -45,5 +45,23 @@ typedef enum __cjson_type TYPE;
 #define CJSON_NOSPACE 2
 #define CJSON_BUFCLOSE 3
 #define CJSON_ERRTYPE 4
+
+#define CJSON_BUFLEN(buf) ({              \
+  unsigned char* ptr = buf;               \
+  unsigned ret = 0;                       \
+  while(*ptr) {                           \
+    ++ret, ++ptr;                         \
+  }                                       \
+  ret;                                    \
+})
+
+#define CJSON_BUFREV(buf) do {            \
+  unsigned len = CJSON_BUFLEN(buf);       \
+  for(unsigned i = 0; i < len / 2; i++) { \
+    unsigned char tmp = buf[i];           \
+    buf[i] = buf[len - i - 1];            \
+    buf[len - i - 1] = tmp;               \
+  }                                       \
+} while (0)
 
 #endif
