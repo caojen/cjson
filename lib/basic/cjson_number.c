@@ -167,7 +167,7 @@ cjson_number_stringify_double(cjson_number* number, unsigned char* buf, unsigned
   if(ptr - buf >= maxsz) {
     return CJSON_NOSPACE;
   }
-  *ptr = '0';
+  *ptr = 0;
   CJSON_BUFREV(buf);
   *ptr = '.';
   ++ptr;
@@ -175,7 +175,8 @@ cjson_number_stringify_double(cjson_number* number, unsigned char* buf, unsigned
   int digit_count = 0;
   while(f && digit_count < CJSON_NUMBER_DOUBLE_MAX_DIGIT) {
     int digit = f * 10;
-    f -= (int)f;
+    f *= 10;
+    f = f - (int)f;
     ++digit_count;
 
     if(ptr - buf >= maxsz) {

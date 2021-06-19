@@ -22,6 +22,7 @@
 #ifndef CJSON_TYPE_H
 #define CJSON_TYPE_H
 
+#include <stdio.h>
 #include <string.h> // include for memset, strlen...
 
 enum __cjson_type {
