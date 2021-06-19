@@ -21,7 +21,8 @@ ${OBJ_DIR}/cjson_null.o: ${LIB_DIR}/basic/cjson_null.c ${HEADERS}
 ${OBJ_DIR}/cjson_bool.o: ${LIB_DIR}/basic/cjson_bool.c ${HEADERS}
 	${CC} ${CFLAG} $< -c -o $@
 
-TESTS = ${BIN_DIR}/test_number ${BIN_DIR}/test_null
+TESTS = ${BIN_DIR}/test_number ${BIN_DIR}/test_null	\
+	${BIN_DIR}/test_bool
 
 tests: ${TESTS}
 
@@ -29,6 +30,9 @@ ${BIN_DIR}/test_number: ${SRC_DIR}/test_number.c ${OBJS}
 	${CC} ${CFLAG} $^ -o $@
 
 ${BIN_DIR}/test_null: ${SRC_DIR}/test_null.c ${OBJS}
+	${CC} ${CFLAG} $^ -o $@
+
+${BIN_DIR}/test_bool: ${SRC_DIR}/test_bool.c ${OBJS}
 	${CC} ${CFLAG} $^ -o $@
 	
 clean:
