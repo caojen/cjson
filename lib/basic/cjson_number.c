@@ -3,7 +3,7 @@
 cjson_number*
 cjson_number_integer(isize_64 value) {
   cjson_number* ret = (cjson_number*) malloc (sizeof(cjson_number));
-  memset(ret, 0, sizeof(ret));
+  memset(ret, 0, sizeof(cjson_number));
   ret->type = NUMBER;
   ret->valuetype = integer;
   ret->value.i = value;
@@ -13,7 +13,7 @@ cjson_number_integer(isize_64 value) {
 cjson_number*
 cjson_number_double(double value){
   cjson_number* ret = (cjson_number*) malloc (sizeof(cjson_number));
-  memset(ret, 0, sizeof(ret));
+  memset(ret, 0, sizeof(cjson_number));
   ret->type = NUMBER;
   ret->valuetype = ldouble;
   ret->value.d = value;

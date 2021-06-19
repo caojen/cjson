@@ -31,14 +31,14 @@ typedef struct __cjson_list cjson_list;
   ret;                                                                              \
 })
 
-#define cjson_list_push_back(list, item) ({                                           \
+#define cjson_list_push_back(list, value) ({                                           \
   int ret = CJSON_OK;                                                                 \
   if(list == NULL) {                                                                  \
     ret = CJSON_UNINIT;                                                               \
   } else {                                                                            \
     cjson_list_node* listnode = (cjson_list_node*) malloc (sizeof(cjson_list_node));  \
     memset(listnode, 0, sizeof(cjson_list_node));                                     \
-    listnode->item = item;                                                            \
+    listnode->item = value;                                                            \
     if(list->head == NULL) {                                                          \
       list->head = list->tail = listnode;                                             \
     } else if(list->head == list->tail) {                                             \
@@ -50,19 +50,20 @@ typedef struct __cjson_list cjson_list;
       list->tail->next = listnode;                                                    \
       list->tail = listnode;                                                          \
     }                                                                                 \
+    ++list->length;                                                                   \
     ret = CJSON_OK;                                                                   \
   }                                                                                   \
   ret;                                                                                \
 })
 
-#define cjson_list_push_front(list, item) ({                                          \
+#define cjson_list_push_front(list, value) ({                                          \
   int ret = CJSON_OK;                                                                 \
   if(list == NULL) {                                                                  \
     ret = CJSON_UNINIT;                                                               \
   } else {                                                                            \
     cjson_list_node* listnode = (cjson_list_node*) malloc (sizeof(cjson_list_node));  \
     memset(listnode, 0, sizeof(cjson_list_node));                                     \
-    listnode->item = item;                                                            \
+    listnode->item = value;                                                            \
     if(list->head == NULL) {                                                          \
       list->head = list->tail = listnode;                                             \
     } else if(list->head == list->tail) {                                             \
@@ -74,9 +75,24 @@ typedef struct __cjson_list cjson_list;
       list->head->prev = listnode;                                                    \
       list->head = listnode;                                                          \
     }                                                                                 \
+    ++list->length;                                                                   \
     ret = CJSON_OK;                                                                   \
   }                                                                                   \
   ret;                                                                                \
 })
+
+// free this list, but not free the item
+#define cjson_list_free(list) do {                    \
+  if(list) {                                          \
+    cjson_list_node* listnode = list->head;           \
+    cjson_list_node* next;                            \
+    while(listnode) {                                 \
+      next = listnode->next;                          \
+      free(listnode);                                 \
+      listnode = next;                                \
+    }                                                 \
+    free(list);                                       \
+  }                                                   \
+} while(0)
 
 #endif

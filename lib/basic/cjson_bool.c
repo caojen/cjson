@@ -3,7 +3,7 @@
 cjson_bool*
 cjson_bool_create(int istrue) {
   cjson_bool* ret = (cjson_bool*) malloc (sizeof(cjson_bool));
-  memset(ret, 0, sizeof(ret));
+  memset(ret, 0, sizeof(cjson_bool));
 
   ret->type = BOOLEAN;
   if(istrue) {
@@ -111,4 +111,5 @@ cjson_bool_free(cjson_bool* _bool) {
   if(_bool) {
     free(_bool);
   }
+  return CJSON_OK;
 }

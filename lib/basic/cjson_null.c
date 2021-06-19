@@ -55,4 +55,5 @@ cjson_null_free(cjson_null* null) {
   if(null) {
     free(null);
   }
+  return CJSON_OK;
 }
