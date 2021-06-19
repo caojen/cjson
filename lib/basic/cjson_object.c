@@ -51,7 +51,7 @@ cjson_object_del(cjson_object* object, cjson_string* key) {
     cjson_object_item* item = (cjson_object_item*)listnode->item;
     if(cjson_string_cmp(item->key, key) == 0) {
       // found, delete this key and value
-      cjson_type_free(item->key);
+      cjson_string_free(item->key);
       cjson_type_free(item->value);
       cjson_list_del(object->list, listnode);
       break;
@@ -77,7 +77,7 @@ cjson_object_free_whole(cjson_object* object) {
     cjson_list_node* listnode = object->list->head;
     while(listnode) {
       cjson_object_item* item = (cjson_object_item*)listnode->item;
-      cjson_type_free(item->key);
+      cjson_string_free(item->key);
       cjson_type_free(item->value);
       cjson_object_item_free(item);
       listnode = listnode->next;

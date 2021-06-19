@@ -123,6 +123,26 @@ typedef enum __cjson_type TYPE;
   ret;                                                                \
 })
 
-#define cjson_type_free(value) ({CJSON_OK;})
+#define cjson_type_free(value) ({                                     \
+  int ret = CJSON_OK;                                                 \
+  switch(cjson_get_type(value)) {                                     \
+    case STRING:                                                      \
+      ret = cjson_string_free(value);                                 \
+      break;                                                          \
+    case NUMBER:                                                      \
+      ret = cjson_number_free(value);                                 \
+      break;                                                          \
+    case BOOLEAN:                                                     \
+      ret = cjson_bool_free(value);                                   \
+      break;                                                          \
+    case NUL:                                                         \
+      ret = cjson_null_free(value);                                   \
+      break;                                                          \
+    default:                                                          \
+      ret = CJSON_ERRTYPE;                                            \
+      break;                                                          \
+  }                                                                   \
+  ret;                                                                \
+})
 
 #endif
