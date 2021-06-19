@@ -14,5 +14,5 @@ int main() {
   int err = 0;
   null = cjson_null_parse("null", 4, &err);
   cjson_null_stringify(&null, (char*)buf, 10);
-  printf("%s\n", buf);
+  printf("%s, %d\n", buf, err);
 }
