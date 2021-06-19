@@ -75,3 +75,33 @@ cjson_bool_parse(unsigned char* buf, unsigned size, int* err) {
 
   return ret;
 }
+
+int cjson_bool_not(cjson_bool* _bool) {
+  if(_bool == NULL) {
+    return CJSON_UNINIT;
+  } else if(cjson_get_type(_bool) != BOOLEAN) {
+    return CJSON_ERRTYPE;
+  }
+
+  if(_bool->istrue) {
+    _bool->istrue = 0;
+  } else {
+    _bool->istrue = 1;
+  }
+  return CJSON_OK;
+}
+
+int cjson_bool_set(cjson_bool* _bool, int istrue) {
+  if(_bool == NULL) {
+    return CJSON_UNINIT;
+  } else if(cjson_get_type(_bool) != BOOLEAN) {
+    return CJSON_ERRTYPE;
+  }
+
+  if(istrue) {
+    _bool->istrue = 1;
+  } else {
+    _bool->istrue = 0;
+  }
+  return CJSON_OK;
+}

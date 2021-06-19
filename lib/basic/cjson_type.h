@@ -49,11 +49,12 @@ typedef enum __cjson_type TYPE;
 #define CJSON_NAN 5
 #define CJSON_NNUL 6
 #define CJSON_NBOOL 7
+#define CJSON_EMEM 8
 
 #define CJSON_BUFLEN(buf) ({              \
-  unsigned char* ptr = buf;               \
+  const unsigned char* ptr = buf;         \
   unsigned ret = 0;                       \
-  while(*ptr) {                           \
+  while(ptr && *ptr) {                    \
     ++ret, ++ptr;                         \
   }                                       \
   ret;                                    \
@@ -88,5 +89,11 @@ typedef enum __cjson_type TYPE;
   }                                       \
   ret;                                    \
 })
+
+#define CHECK_NO_SPACE(t) do {            \
+  if(t) {                                 \
+    return CJSON_NOSPACE;                 \
+  }                                       \
+} while(0)
 
 #endif
