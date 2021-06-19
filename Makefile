@@ -3,6 +3,7 @@ OBJ_DIR = obj
 LIB_DIR = lib
 SRC_DIR = src
 BIN_DIR = bin
+TEST_DIR = ${SRC_DIR}/tests
 CFLAG = -Wall -I${LIB_DIR} -I${LIB_DIR}/basic
 HEADERS = ${LIB_DIR}/cjson.h ${LIB_DIR}/basic/cjson_array.h ${LIB_DIR}/basic/cjson_bool.h ${LIB_DIR}/basic/cjson_null.h \
 	${LIB_DIR}/basic/cjson_number.h ${LIB_DIR}/basic/cjson_object.h ${LIB_DIR}/basic/cjson_string.h ${LIB_DIR}/basic/cjson_type.h
@@ -29,16 +30,16 @@ TESTS = ${BIN_DIR}/test_number ${BIN_DIR}/test_null	\
 
 tests: ${TESTS}
 
-${BIN_DIR}/test_number: ${SRC_DIR}/test_number.c ${OBJS}
+${BIN_DIR}/test_number: ${TEST_DIR}/test_number.c ${OBJS}
 	${CC} ${CFLAG} $^ -o $@
 
-${BIN_DIR}/test_null: ${SRC_DIR}/test_null.c ${OBJS}
+${BIN_DIR}/test_null: ${TEST_DIR}/test_null.c ${OBJS}
 	${CC} ${CFLAG} $^ -o $@
 
-${BIN_DIR}/test_bool: ${SRC_DIR}/test_bool.c ${OBJS}
+${BIN_DIR}/test_bool: ${TEST_DIR}/test_bool.c ${OBJS}
 	${CC} ${CFLAG} $^ -o $@
 
-${BIN_DIR}/test_string: ${SRC_DIR}/test_string.c ${OBJS}
+${BIN_DIR}/test_string: ${TEST_DIR}/test_string.c ${OBJS}
 	${CC} ${CFLAG} $^ -o $@
 	
 clean:
