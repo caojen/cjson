@@ -28,3 +28,19 @@ cjson_null_stringify(cjson_null* null, unsigned char* buf, unsigned maxsz) {
 
   return CJSON_OK;
 }
+
+cjson_null
+cjson_null_parse(unsigned char* buf, unsigned size, int* err) {
+  cjson_null ret = CJSON_NULL_INITIALIZER;
+  if(size != 4) {
+    *err = CJSON_NNUL;
+  } else if(buf == NULL) {
+    *err = CJSON_BUFCLOSE;
+  } else {
+    if(buf[0] == 'n' && buf[1] == 'u' && buf[2] == 'l' && buf[3] == 'l') {
+      *err = CJSON_OK;
+    }
+  }
+
+  return ret;
+}

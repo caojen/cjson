@@ -10,4 +10,9 @@ int main() {
   cjson_number number = cjson_number_integer(10);
   int ret = cjson_null_stringify(&number, (char*)buf, 10);
   printf("%d\n", ret);
+
+  int err = 0;
+  null = cjson_null_parse("null", 4, &err);
+  cjson_null_stringify(&null, (char*)buf, 10);
+  printf("%s\n", buf);
 }

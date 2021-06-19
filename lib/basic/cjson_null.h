@@ -15,4 +15,11 @@ cjson_null cjson_null_create();
 
 int cjson_null_stringify(cjson_null* null, unsigned char* buf, unsigned maxsz);
 
+/**
+ * try parse a string into null
+ * 
+ * i.e, "null"(size = 4) => cjson_null
+ */
+cjson_null cjson_null_parse(unsigned char* buf, unsigned size, int* err);
+
 #endif
