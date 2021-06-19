@@ -33,7 +33,33 @@ int main() {
   cjson_object_set(object, eig, bf);
   // reset
   cjson_object_set(object, six, bf2);
-
   ret = cjson_object_stringify(object, buf, 1000);
+  printf("%s, %d\n", buf, ret);
+
+  // object an object
+  cjson_bool* obj = cjson_object_init();
+  cjson_string* key = cjson_string_parse("datas");
+  cjson_object_set(obj, key, object);
+
+  ret = cjson_object_stringify(obj, buf, 1000);
+  printf("%s, %d\n", buf, ret);
+
+  cjson_string* total = cjson_string_parse("total");
+  cjson_number* t100 = cjson_number_integer(100);
+  cjson_object_set(obj, total, t100);
+  ret = cjson_object_stringify(obj, buf, 1000);
+  printf("%s, %d\n", buf, ret);
+
+  // object an array
+  cjson_array* numbers = CJSON_ARRAY_INITIALIZER;
+  cjson_number* t1 = cjson_number_integer(1);
+  cjson_number* t2 = cjson_number_integer(2);
+  cjson_number* t3 = cjson_number_integer(3);
+  cjson_array_push(numbers, t1);
+  cjson_array_push(numbers, t2);
+  cjson_array_push(numbers, t3);
+  cjson_string* kn = cjson_string_parse("key");
+  cjson_object_set(obj, kn, numbers);
+  ret = cjson_object_stringify(obj, buf, 1000);
   printf("%s, %d\n", buf, ret);
 }

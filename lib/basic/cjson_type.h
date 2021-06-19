@@ -116,6 +116,12 @@ typedef enum __cjson_type TYPE;
     case NUL:                                                         \
       ret = cjson_null_stringify((cjson_null*)value, buf, maxsz);     \
       break;                                                          \
+    case ARRAY:                                                       \
+      ret = cjson_array_stringify((cjson_array*)value, buf, maxsz);   \
+      break;                                                          \
+    case OBJECT:                                                      \
+      ret = cjson_object_stringify((cjson_object*)value, buf, maxsz); \
+      break;                                                          \
     default:                                                          \
       ret = CJSON_ERRTYPE;                                            \
       break;                                                          \
@@ -137,6 +143,12 @@ typedef enum __cjson_type TYPE;
       break;                                                          \
     case NUL:                                                         \
       ret = cjson_null_free(value);                                   \
+      break;                                                          \
+    case ARRAY:                                                       \
+      ret = cjson_array_free_whole(value);                            \
+      break;                                                          \
+    case OBJECT:                                                      \
+      ret = cjson_object_free_whole(value);                           \
       break;                                                          \
     default:                                                          \
       ret = CJSON_ERRTYPE;                                            \

@@ -4,6 +4,7 @@ cjson_array*
 cjson_array_init() {
   cjson_array* ret = (cjson_array*) malloc (sizeof(cjson_array));
   memset(ret, 0, sizeof(cjson_array));
+  ret->type = ARRAY;
   ret->list = cjson_list_init();
   return ret;
 }
