@@ -1,15 +1,15 @@
 #include "cjson_bool.h"
 
-cjson_bool
+cjson_bool*
 cjson_bool_create(int istrue) {
-  cjson_bool ret;
-  memset(&ret, 0, sizeof(ret));
+  cjson_bool* ret = (cjson_bool*) malloc (sizeof(cjson_bool));
+  memset(ret, 0, sizeof(ret));
 
-  ret.type = BOOLEAN;
+  ret->type = BOOLEAN;
   if(istrue) {
-    ret.istrue = 1;
+    ret->istrue = 1;
   } else {
-    ret.istrue = 0;
+    ret->istrue = 0;
   }
 
   return ret;
@@ -48,9 +48,9 @@ cjson_bool_stringify(cjson_bool* _bool, unsigned char* buf, unsigned maxsz) {
   return CJSON_OK;
 }
 
-cjson_bool
+cjson_bool*
 cjson_bool_parse(unsigned char* buf, unsigned size, int* err) {
-  cjson_bool ret = CJSON_BOOL_TRUE;
+  cjson_bool* ret = CJSON_BOOL_TRUE;
   *err = CJSON_OK;
   if(size != 4 && size != 5) {
     *err = CJSON_NBOOL;
@@ -104,4 +104,11 @@ int cjson_bool_set(cjson_bool* _bool, int istrue) {
     _bool->istrue = 0;
   }
   return CJSON_OK;
+}
+
+int
+cjson_bool_free(cjson_bool* _bool) {
+  if(_bool) {
+    free(_bool);
+  }
 }

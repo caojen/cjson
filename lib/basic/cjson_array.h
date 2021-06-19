@@ -4,7 +4,9 @@
 #include "cjson.h"
 
 struct __cjson_array {
-
+  TYPE type;
+  unsigned length;
+  void** values;
 };
 
 #endif
