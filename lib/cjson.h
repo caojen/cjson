@@ -3,5 +3,6 @@
 
 #include "cjson_number.h"
 #include "cjson_null.h"
+#include "cjson_bool.h"
 
 #endif

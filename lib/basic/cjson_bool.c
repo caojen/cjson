@@ -45,4 +45,33 @@ cjson_bool_stringify(cjson_bool* _bool, unsigned char* buf, unsigned maxsz) {
     buf[4] = 'e';
     buf[5] = 0;
   }
+  return CJSON_OK;
+}
+
+cjson_bool
+cjson_bool_parse(unsigned char* buf, unsigned size, int* err) {
+  cjson_bool ret = CJSON_BOOL_TRUE;
+  *err = CJSON_OK;
+  if(size != 4 && size != 5) {
+    *err = CJSON_NBOOL;
+    return ret;
+  }
+
+  if(size == 4) {
+    // true
+    if(CJSON_CHAR_EQUAL_INSENSE(buf[0], 't')) {
+      ret = CJSON_BOOL_TRUE;
+    } else {
+      *err = CJSON_NBOOL;
+    }
+  } else {
+    // false
+    if(CJSON_CHAR_EQUAL_INSENSE(buf[0], 'f')) {
+      ret = CJSON_BOOL_FALSE;
+    } else {
+      *err = CJSON_NBOOL;
+    }
+  }
+
+  return ret;
 }

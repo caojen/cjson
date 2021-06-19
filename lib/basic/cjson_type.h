@@ -68,4 +68,25 @@ typedef enum __cjson_type TYPE;
   }                                       \
 } while (0)
 
+// check if two char is equal, with case insensitive.
+#define CJSON_CHAR_EQUAL_INSENSE(a, b) ({ \
+  int ret = 0;                            \
+  if(a >= 'A' && a <= 'Z') {              \
+    if(b >= 'A' && b <= 'Z') {            \
+      ret = a == b;                       \
+    } else if(b >= 'a' && b <= 'z') {     \
+      ret = a == b - 'a' + 'A';           \
+    }                                     \
+  } else if(a >= 'a' && b <= 'z') {       \
+    if(b >= 'a' && b <= 'z') {            \
+      ret = a == b;                       \
+    } else if(b >= 'A' && b <= 'Z') {     \
+      ret = a == b - 'A' + 'a';           \
+    }                                     \
+  } else {                                \
+    ret = a == b;                         \
+  }                                       \
+  ret;                                    \
+})
+
 #endif
