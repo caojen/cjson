@@ -2,26 +2,26 @@
 
 #include "cjson_string.h"
 
-cjson_string
+cjson_string*
 cjson_string_init() {
-  cjson_string ret;
-  memset(&ret, 0, sizeof(ret));
+  cjson_string* ret = (cjson_string*) malloc (sizeof(cjson_string));
+  memset(ret, 0, sizeof(cjson_string));
 
-  ret.type = STRING;
-  ret.length = ret.capcity = 0;
-  ret.buf = NULL;
+  ret->type = STRING;
+  ret->length = ret->capcity = 0;
+  ret->buf = NULL;
   return ret;
 }
 
-cjson_string cjson_string_from_cstring(const unsigned char* str) {
-  cjson_string ret = cjson_string_init();
+cjson_string* cjson_string_from_cstring(const unsigned char* str) {
+  cjson_string* ret = cjson_string_init();
   if(str == NULL || *str == 0) {
     return ret;
   } else {
-    ret.length = CJSON_BUFLEN(str);
-    ret.capcity = ret.length;
-    ret.buf = (unsigned char*) malloc (sizeof(unsigned char) * ret.capcity);
-    memcpy(ret.buf, str, ret.capcity * sizeof(unsigned char));
+    ret->length = CJSON_BUFLEN(str);
+    ret->capcity = ret->length;
+    ret->buf = (unsigned char*) malloc (sizeof(unsigned char) * ret->capcity);
+    memcpy(ret->buf, str, ret->capcity * sizeof(unsigned char));
   }
   return ret;
 }

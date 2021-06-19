@@ -19,8 +19,8 @@ struct __cjson_string {
 
 typedef struct __cjson_string cjson_string;
 
-cjson_string cjson_string_init();
-cjson_string cjson_string_from_cstring(const unsigned char* str);
+cjson_string* cjson_string_init();
+cjson_string* cjson_string_from_cstring(const unsigned char* str);
 int cjson_string_set_cstring(cjson_string* string, const unsigned char* str);
 int cjson_string_to_cstring(const cjson_string* string, unsigned char* buf, unsigned maxsz);
 int cjson_string_free(cjson_string* string);

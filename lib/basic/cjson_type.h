@@ -97,4 +97,28 @@ typedef enum __cjson_type TYPE;
   }                                       \
 } while(0)
 
+#include "cjson_array.h"
+
+#define cjson_type_stringify(value, buf, maxsz) ({                    \
+  int ret = CJSON_OK;                                                 \
+  switch(cjson_get_type(value)) {                                     \
+    case STRING:                                                      \
+      ret = cjson_string_stringify((cjson_string*)value, buf, maxsz); \
+      break;                                                          \
+    case NUMBER:                                                      \
+      ret = cjson_number_stringify((cjson_number*)value, buf, maxsz); \
+      break;                                                          \
+    case BOOLEAN:                                                     \
+      ret = cjson_bool_stringify((cjson_bool*)value, buf, maxsz);     \
+      break;                                                          \
+    case NUL:                                                         \
+      ret = cjson_null_stringify((cjson_null*)value, buf, maxsz);     \
+      break;                                                          \
+    default:                                                          \
+      ret = CJSON_ERRTYPE;                                            \
+      break;                                                          \
+  }                                                                   \
+  ret;                                                                \
+})
+
 #endif

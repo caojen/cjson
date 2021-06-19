@@ -1,6 +1,7 @@
 #ifndef CJSON_ARRAY_H
 #define CJSON_ARRAY_H
 
+#include "cjson_type.h"
 #include "cjson_list.h"
 #include "cjson_bool.h"
 #include "cjson_null.h"
@@ -27,8 +28,10 @@ int cjson_array_push(cjson_array* array, void* value);
 /**
  * Get the value at index. if out of range, return NULL;
  */
-void* cjson_array_at(cjson_array* array, unsigned index);
+void* cjson_array_at(const cjson_array* array, unsigned index);
 
 int cjson_array_free(cjson_array* array);
+
+int cjson_array_stringify(const cjson_array* array, unsigned char* buf, unsigned maxsz);
 
 #endif
