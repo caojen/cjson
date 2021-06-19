@@ -1,5 +1,21 @@
 #include "cjson_object.h"
 
+cjson_object_item*
+cjson_object_item_create(cjson_string* key, void* value) {
+  cjson_object_item* ret = (cjson_object_item*) malloc (sizeof(cjson_object_item));
+  ret->key = key;
+  ret->value = value;
+  return ret;
+}
+
+int
+cjson_object_item_free(cjson_object_item* item) {
+  if(item) {
+    free(item);
+  }
+  return CJSON_OK;
+}
+
 cjson_object*
 cjson_object_init() {
   cjson_object* ret = (cjson_object*) malloc (sizeof(cjson_object));
@@ -101,20 +117,34 @@ cjson_object_stringify(cjson_object* object, unsigned char* buf, unsigned maxsz)
   unsigned char* ptr = buf;
   CHECK_NO_SPACE(ptr - buf >= maxsz);
   *ptr = '{'; ++ptr;
-
+  
   if(object->list->length != 0) {
     cjson_list_node* listnode = object->list->head;
     while(listnode) {
+      if(listnode != object->list->head) {
+        CHECK_NO_SPACE(ptr - buf >= maxsz);
+        *ptr = ','; ++ptr;
+      }
       unsigned used = ptr - buf;
       unsigned remain = maxsz - used;
 
       cjson_object_item* item = (cjson_object_item*) listnode->item;
-      ret = cjson_type_stringify(item->key, buf, remain);
+      ret = cjson_string_stringify(item->key, ptr, remain);
       if(ret != CJSON_OK) {
         return ret;
       }
-
       while(*ptr) ++ptr;
+
+      CHECK_NO_SPACE(ptr - buf >= maxsz);
+      *ptr = ':'; ++ptr;
+      used = ptr - buf;
+      remain = maxsz - used;
+      ret = cjson_type_stringify(item->value, ptr, remain);
+      if(ret != CJSON_OK) {
+        return ret;
+      }
+      while(*ptr) ++ptr;
+
       listnode = listnode->next;
     }
   }

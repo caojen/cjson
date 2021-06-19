@@ -105,3 +105,21 @@ cjson_string_stringify(const cjson_string* string, unsigned char* buf, unsigned 
   *ptr = 0;
   return CJSON_OK;
 }
+
+int cjson_string_cmp(cjson_string* a, cjson_string* b) {
+  if(a == NULL && b == NULL) {
+    return 0;
+  } else if(a == NULL || b == NULL) {
+    return 1;
+  }
+
+  if(a->length != b->length) {
+    return 1;
+  }
+  for(int i = 0; i < a->length; i++) {
+    if(a->buf[i] != b->buf[i]) {
+      return 1;
+    }
+  }
+  return 0;
+}
