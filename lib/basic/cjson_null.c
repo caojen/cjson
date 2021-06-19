@@ -1,9 +1,9 @@
 #include "cjson_null.h"
 
-cjson_null
+cjson_null*
 cjson_null_create() {
-  cjson_null ret;
-  ret.type = NUL;
+  cjson_null* ret = (cjson_null*) malloc (sizeof(cjson_null));
+  ret->type = NUL;
 
   return ret;
 }
@@ -29,9 +29,9 @@ cjson_null_stringify(cjson_null* null, unsigned char* buf, unsigned maxsz) {
   return CJSON_OK;
 }
 
-cjson_null
+cjson_null*
 cjson_null_parse(unsigned char* buf, unsigned size, int* err) {
-  cjson_null ret = CJSON_NULL_INITIALIZER;
+  cjson_null* ret = CJSON_NULL_INITIALIZER;
   if(size != 4) {
     *err = CJSON_NNUL;
   } else if(buf == NULL) {
@@ -48,4 +48,11 @@ cjson_null_parse(unsigned char* buf, unsigned size, int* err) {
   }
 
   return ret;
+}
+
+int
+cjson_null_free(cjson_null* null) {
+  if(null) {
+    free(null);
+  }
 }
