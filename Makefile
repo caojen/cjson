@@ -17,12 +17,15 @@ ${OBJ_DIR}/cjson_number.o: ${LIB_DIR}/basic/cjson_number.c ${HEADERS}
 ${OBJ_DIR}/cjson_null.o: ${LIB_DIR}/basic/cjson_null.c ${HEADERS}
 	${CC} ${CFLAG} $< -c -o $@
 
-TESTS = ${BIN_DIR}/test_number
+TESTS = ${BIN_DIR}/test_number ${BIN_DIR}/test_null
 
 tests: ${TESTS}
 
 ${BIN_DIR}/test_number: ${SRC_DIR}/test_number.c ${OBJS}
 	${CC} ${CFLAG} $^ -o $@
 
+${BIN_DIR}/test_null: ${SRC_DIR}/test_null.c ${OBJS}
+	${CC} ${CFLAG} $^ -o $@
+	
 clean:
 	rm -rf bin/* obj/*

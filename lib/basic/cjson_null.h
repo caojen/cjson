@@ -7,12 +7,12 @@ struct __cjson_null {
   TYPE type;
 };
 
-typedef struct __cjson_null CJSON_NULL;
+typedef struct __cjson_null cjson_null;
 
-CJSON_NULL cjson_null_create();
+cjson_null cjson_null_create();
 
-#define CJSON_null cjson_null_create()
+#define CJSON_NULL_INITIALIZER cjson_null_create()
 
-int cjson_null_stringify(CJSON_NULL* null, unsigned char* buf, unsigned maxsz);
+int cjson_null_stringify(cjson_null* null, unsigned char* buf, unsigned maxsz);
 
 #endif

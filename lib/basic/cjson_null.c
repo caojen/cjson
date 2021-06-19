@@ -1,21 +1,23 @@
 #include "cjson_null.h"
 
-CJSON_NULL
+cjson_null
 cjson_null_create() {
-  CJSON_NULL ret;
+  cjson_null ret;
   ret.type = NUL;
 
   return ret;
 }
 
 int
-cjson_null_stringify(CJSON_NULL* null, unsigned char* buf, unsigned maxsz) {
+cjson_null_stringify(cjson_null* null, unsigned char* buf, unsigned maxsz) {
   if(maxsz < 5) {
     return CJSON_NOSPACE;
   } else if(buf == NULL) {
     return CJSON_BUFCLOSE;
   } else if(null == NULL) {
     return CJSON_UNINIT;
+  } else if(cjson_get_type(null) != NUL) {
+    return CJSON_ERRTYPE;
   }
 
   buf[0] = 'n';
