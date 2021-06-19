@@ -48,6 +48,7 @@ typedef enum __cjson_type TYPE;
 #define CJSON_ERRTYPE 4
 #define CJSON_NAN 5
 #define CJSON_NNUL 6
+#define CJSON_NBOOL 7
 
 #define CJSON_BUFLEN(buf) ({              \
   unsigned char* ptr = buf;               \
