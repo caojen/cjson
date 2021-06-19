@@ -31,6 +31,11 @@ int cjson_array_push(cjson_array* array, void* value);
 void* cjson_array_at(const cjson_array* array, unsigned index);
 
 /**
+ * Get the length of array
+ */
+unsigned cjson_array_length(cjson_array* array);
+
+/**
  * free this array, but not free the items.
  */
 int cjson_array_free(cjson_array* array);

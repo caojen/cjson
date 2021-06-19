@@ -92,3 +92,11 @@ cjson_array_stringify(const cjson_array* array, unsigned char* buf, unsigned max
   *ptr = 0;
   return CJSON_OK;
 }
+
+unsigned cjson_array_length(cjson_array* array) {
+  unsigned ret = 0;
+  if(array) {
+    ret = array->list->length;
+  }
+  return ret;
+}
