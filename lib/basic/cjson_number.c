@@ -192,3 +192,52 @@ cjson_number_stringify_double(cjson_number* number, unsigned char* buf, unsigned
   *ptr = 0;
   return CJSON_OK;
 }
+
+cjson_number
+cjson_number_parse(unsigned char* buf, unsigned size, int* err) {
+  int dot_exists = 0;
+  cjson_number ret = cjson_number_integer(0);
+  *err = CJSON_OK;
+
+  // format the integer part of buf
+  isize_64 i = 0;
+  double d = 0.0;
+  unsigned char* ptr = buf;
+
+  while(ptr - buf <= size && *ptr != '.' && *ptr) {
+    if(*ptr >= '0' && *ptr <= '9') {
+      i = i * 10 + *ptr - '0';
+      ++ptr;
+    } else {
+      *err = CJSON_NAN;
+      return ret;
+    }
+  }
+
+  if(*ptr == '.') {
+    dot_exists = 1;
+    ++ptr;
+  }
+  int digit = 0;
+  while(dot_exists && ptr - buf <= size && *ptr) {
+    ++digit;
+    if(*ptr >= '0' && *ptr <= '9') {
+      double base = 1;
+      for(int i = 0; i < digit; i++) {
+        base *= 10;
+      }
+      d += (*ptr - '0') / base;
+      ++ptr;
+    } else {
+      *err = CJSON_NAN;
+      return ret;
+    }
+  }
+
+  if(d == 0) {
+    ret = cjson_number_integer(i);
+  } else {
+    ret = cjson_number_double(i + d);
+  }
+  return ret;
+}

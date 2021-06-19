@@ -68,6 +68,21 @@ int cjson_number_stringify_double(cjson_number* number, unsigned char* buf, unsi
 int cjson_number_stringify_integer(cjson_number* number, unsigned char* buf, unsigned int maxsz);
 
 /**
+ * parse
+ * 
+ * parse string into number, specify the length of string
+ * 
+ * return the pass result
+ * 
+ * For example, "10"(with size = 2) => 10, "3.14"(with size = 4) => 3.14
+ * 
+ * If parse error, e.g, "3.14.13", or "3.14a", CJSON_NAN will be returned.
+ * 
+ * The error code is returned at int* err. If no error, return CJSON_OK
+ */
+cjson_number cjson_number_parse(unsigned char* buf, unsigned size, int* err);
+
+/**
  * Define max digit of double
  */
 #define CJSON_NUMBER_DOUBLE_MAX_DIGIT 6
