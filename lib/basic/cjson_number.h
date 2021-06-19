@@ -30,8 +30,10 @@ typedef struct __cjson_number cjson_number;
  * Construct a cjson_number.
  * A number is an integer(long long) or a double.
  */
-cjson_number cjson_number_integer(isize_64 value);
-cjson_number cjson_number_double(double value);
+cjson_number* cjson_number_integer(isize_64 value);
+cjson_number* cjson_number_double(double value);
+
+int cjson_number_free(cjson_number* number);
 
 /**
  * Set a cjson_number
@@ -80,7 +82,7 @@ int cjson_number_stringify_integer(cjson_number* number, unsigned char* buf, uns
  * 
  * The error code is returned at int* err. If no error, return CJSON_OK
  */
-cjson_number cjson_number_parse(unsigned char* buf, unsigned size, int* err);
+cjson_number* cjson_number_parse(unsigned char* buf, unsigned size, int* err);
 
 /**
  * Define max digit of double

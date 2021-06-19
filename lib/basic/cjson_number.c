@@ -1,23 +1,31 @@
 #include "cjson_number.h"
 
-cjson_number
+cjson_number*
 cjson_number_integer(isize_64 value) {
-  cjson_number ret;
-  memset(&ret, 0, sizeof(ret));
-  ret.type = NUMBER;
-  ret.valuetype = integer;
-  ret.value.i = value;
+  cjson_number* ret = (cjson_number*) malloc (sizeof(cjson_number));
+  memset(ret, 0, sizeof(ret));
+  ret->type = NUMBER;
+  ret->valuetype = integer;
+  ret->value.i = value;
   return ret;
 }
 
-cjson_number
+cjson_number*
 cjson_number_double(double value){
-  cjson_number ret;
-  memset(&ret, 0, sizeof(ret));
-  ret.type = NUMBER;
-  ret.valuetype = ldouble;
-  ret.value.d = value;
+  cjson_number* ret = (cjson_number*) malloc (sizeof(cjson_number));
+  memset(ret, 0, sizeof(ret));
+  ret->type = NUMBER;
+  ret->valuetype = ldouble;
+  ret->value.d = value;
   return ret;
+}
+
+int
+cjson_number_free(cjson_number* number) {
+  if(number) {
+    free(number);
+  }
+  return CJSON_OK;
 }
 
 int
@@ -193,10 +201,10 @@ cjson_number_stringify_double(cjson_number* number, unsigned char* buf, unsigned
   return CJSON_OK;
 }
 
-cjson_number
+cjson_number*
 cjson_number_parse(unsigned char* buf, unsigned size, int* err) {
   int dot_exists = 0;
-  cjson_number ret = cjson_number_integer(0);
+  cjson_number* ret = cjson_number_integer(0);
   *err = CJSON_OK;
 
   // format the integer part of buf
