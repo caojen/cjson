@@ -30,6 +30,7 @@ int cjson_string_free(cjson_string* string);
  * 10 => "10"
  * sk99 => "sk99"
  * this's abc "ttt" => "this's abc \"ttt\""
+ * what? \/ => "what? \\/"
  */
 int cjson_string_stringify(const cjson_string* string, unsigned char* buf, unsigned maxsz);
 #define cjson_string_parse cjson_string_from_cstring

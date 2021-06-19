@@ -25,7 +25,7 @@ ${OBJ_DIR}/cjson_string.o: ${LIB_DIR}/basic/cjson_string.c ${HEADERS}
 	${CC} ${CFLAG} $< -c -o $@
 
 TESTS = ${BIN_DIR}/test_number ${BIN_DIR}/test_null	\
-	${BIN_DIR}/test_bool
+	${BIN_DIR}/test_bool ${BIN_DIR}/test_string
 
 tests: ${TESTS}
 
@@ -36,6 +36,9 @@ ${BIN_DIR}/test_null: ${SRC_DIR}/test_null.c ${OBJS}
 	${CC} ${CFLAG} $^ -o $@
 
 ${BIN_DIR}/test_bool: ${SRC_DIR}/test_bool.c ${OBJS}
+	${CC} ${CFLAG} $^ -o $@
+
+${BIN_DIR}/test_string: ${SRC_DIR}/test_string.c ${OBJS}
 	${CC} ${CFLAG} $^ -o $@
 	
 clean:

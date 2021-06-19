@@ -87,9 +87,17 @@ cjson_string_stringify(const cjson_string* string, unsigned char* buf, unsigned 
     if(string->buf[i] == '"') {
       CHECK_NO_SPACE(ptr - buf >= maxsz);
       *ptr = '\\'; ++ptr;
+      CHECK_NO_SPACE(ptr - buf >= maxsz);
+      *ptr = '"'; ++ptr;
+    } else if(string->buf[i] == '\\') {
+      CHECK_NO_SPACE(ptr - buf >= maxsz);
+      *ptr = '\\'; ++ptr;
+      CHECK_NO_SPACE(ptr - buf >= maxsz);
+      *ptr = '\\'; ++ptr;
+    } else {
+      CHECK_NO_SPACE(ptr - buf >= maxsz);
+      *ptr = string->buf[i]; ++ptr;
     }
-    CHECK_NO_SPACE(ptr - buf >= maxsz);
-    *ptr = string->buf[i]; ++ptr;
   }
   CHECK_NO_SPACE(ptr - buf >= maxsz);
   *ptr = '"'; ++ptr;
