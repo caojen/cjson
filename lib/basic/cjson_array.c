@@ -41,12 +41,30 @@ cjson_array_free(cjson_array* array) {
 }
 
 int
+cjson_array_free_whole(cjson_array* array) {
+  if(array) {
+    cjson_list_node* listnode = array->list->head;
+    while(listnode) {
+      cjson_type_free(listnode->item);
+      listnode = listnode->next;
+    }
+    cjson_array_free(array);
+  }
+  return CJSON_OK;
+}
+
+int
 cjson_array_stringify(const cjson_array* array, unsigned char* buf, unsigned maxsz) {
+  if(array == NULL) {
+    return CJSON_UNINIT;
+  } else if(buf == NULL) {
+    return CJSON_BUFCLOSE;
+  }
   unsigned char* ptr = buf;
   CHECK_NO_SPACE(ptr - buf >= maxsz);
   *ptr = '['; ++ptr;
 
-  if(array != NULL && array->list->length != 0) {
+  if(array->list->length != 0) {
     cjson_list_node* listnode = array->list->head;
     while(listnode) {
       if(listnode != array->list->head) {

@@ -95,4 +95,20 @@ typedef struct __cjson_list cjson_list;
   }                                                   \
 } while(0)
 
+// delete this listnode
+#define cjson_list_del(__list, __item) do { \
+  if(__item->prev) {                        \
+    __item->prev->next = __item->next;      \
+  }                                         \
+  if(__item->next) {                        \
+    __item->next->prev = __item->prev;      \
+  }                                         \
+  if(__item == __list->head) {              \
+    __list->head = __item->next;            \
+  }                                         \
+  if(__item == __list->tail) {              \
+    __list->tail = __item->prev;            \
+  }                                         \
+} while(0)
+
 #endif

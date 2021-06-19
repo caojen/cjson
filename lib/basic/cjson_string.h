@@ -25,6 +25,10 @@ int cjson_string_set_cstring(cjson_string* string, const unsigned char* str);
 int cjson_string_to_cstring(const cjson_string* string, unsigned char* buf, unsigned maxsz);
 int cjson_string_free(cjson_string* string);
 
+// compare a and b is equal.
+// return 0 means they are equaled.
+int cjson_string_cmp(cjson_string* a, cjson_string* b);
+
 /**
  * string stringify
  * 10 => "10"

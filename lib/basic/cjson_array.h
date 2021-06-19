@@ -30,7 +30,15 @@ int cjson_array_push(cjson_array* array, void* value);
  */
 void* cjson_array_at(const cjson_array* array, unsigned index);
 
+/**
+ * free this array, but not free the items.
+ */
 int cjson_array_free(cjson_array* array);
+
+/**
+ * free this array, including the items.
+ */
+int cjson_array_free_whole(cjson_array* array);
 
 int cjson_array_stringify(const cjson_array* array, unsigned char* buf, unsigned maxsz);
 

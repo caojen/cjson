@@ -51,6 +51,7 @@ typedef enum __cjson_type TYPE;
 #define CJSON_NNUL 6
 #define CJSON_NBOOL 7
 #define CJSON_EMEM 8
+#define CJSON_NKEY 9
 
 #define CJSON_BUFLEN(buf) ({              \
   const unsigned char* ptr = buf;         \
@@ -98,6 +99,7 @@ typedef enum __cjson_type TYPE;
 } while(0)
 
 #include "cjson_array.h"
+#include "cjson_object.h"
 
 #define cjson_type_stringify(value, buf, maxsz) ({                    \
   int ret = CJSON_OK;                                                 \
@@ -120,5 +122,7 @@ typedef enum __cjson_type TYPE;
   }                                                                   \
   ret;                                                                \
 })
+
+#define cjson_type_free(value) ({CJSON_OK;})
 
 #endif
